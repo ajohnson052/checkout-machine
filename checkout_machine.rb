@@ -1,5 +1,6 @@
 require_relative 'scanner'
 require_relative 'item'
+require_relative 'bogo_machine'
 require 'pry'
 
 class CheckoutMachine
@@ -27,8 +28,7 @@ class CheckoutMachine
   private
 
   def apply_discount
-    return unless items_scanned.has_key?(123)
-    @balance -= items_scanned[123][:price] * (items_scanned[123][:number]/3).floor
+    @balance -= BOGOMachine.new(items_scanned).discount
   end
 
   def update_items(item)
@@ -40,11 +40,11 @@ class CheckoutMachine
     }
   end
 
-  def number_of(sku)
-    items_scanned.has_key?(sku) ? items_scanned[sku][:number] : 0
-  end
-
   def bonus_card_scanned?
     items_scanned.has_key?(000)
+  end
+
+  def number_of(sku)
+    items_scanned.has_key?(sku) ? items_scanned[sku][:number] : 0
   end
 end
