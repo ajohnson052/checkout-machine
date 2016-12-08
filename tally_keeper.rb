@@ -1,5 +1,5 @@
 class TallyKeeper
-  attr_accessor :items_scanned
+  attr_reader :items_scanned
 
   def initialize
     @items_scanned = {}
@@ -14,14 +14,14 @@ class TallyKeeper
 
   def update_items(item)
     number = number_of(item.sku) + 1
-    items_scanned[item.sku] = {
+    @items_scanned[item.sku] = {
       number: number,
       price: item.price,
       discounted_price: item.discounted_price
     }
   end
-    
+
   def number_of(sku)
-    items_scanned.has_key?(sku) ? items_scanned[sku][:number] : 0
+    @items_scanned.has_key?(sku) ? @items_scanned[sku][:number] : 0
   end
 end

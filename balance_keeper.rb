@@ -1,5 +1,4 @@
 class BalanceKeeper
-
   def initialize(items_scanned)
     @items_scanned = items_scanned
     @balance = 0

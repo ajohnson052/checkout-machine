@@ -1,5 +1,5 @@
 class Item
-  attr_reader :sku, :price, :discount
+  attr_reader :sku, :price
 
   def initialize(sku, description, price, discount)
     @sku = sku
@@ -9,6 +9,6 @@ class Item
   end
 
   def discounted_price
-    price - discount * price
+    @price - @discount * @price
   end
 end
