@@ -1,6 +1,4 @@
 class Scanner
-  attr_reader :items_scanned
-
   def initialize
     @item_tally = {}
   end
