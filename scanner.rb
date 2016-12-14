@@ -1,5 +1,5 @@
 class Scanner
-  def get_item(sku)
+  def self.get_item(sku)
     hash = case sku
     when 123
       { sku: 123, description: 'chips', price:  200 }

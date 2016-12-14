@@ -5,9 +5,10 @@ class BalanceKeeper
   end
 
   def total
-    @items_scanned.each do |_k, item|
-      final_price = bonus_card_scanned? ? item[:discounted_price] : item[:price]
-      @balance += final_price * item[:number]
+    @items_scanned.each do |sku, number|
+      item = Scanner.get_item(sku)
+      final_price = bonus_card_scanned? ? item.discounted_price : item.price
+      @balance += final_price * number
     end
     apply_discount if bonus_card_scanned?
     @balance

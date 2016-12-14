@@ -5,6 +5,7 @@ class BOGOMachine
 
   def discount
     return 0 unless @items_scanned.has_key?(123)
-    @items_scanned[123][:price] * (@items_scanned[123][:number]/3).floor
+    item = Scanner.get_item(123)
+    item.price * (@items_scanned[123]/3).floor
   end
 end
