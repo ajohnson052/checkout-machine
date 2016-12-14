@@ -1,14 +1,15 @@
 class BalanceKeeper
-  def initialize(items_scanned)
-    @items_scanned = items_scanned
+  def initialize(scanner)
+    @scanner = scanner
+    @items_scanned = scanner.items_scanned
     @balance = 0
   end
 
   def total
-    @items_scanned.each do |sku, number|
+    @items_scanned.each do |sku|
       item = ItemCatalog.get_item(sku)
       final_price = bonus_card_scanned? ? item.discounted_price : item.price
-      @balance += final_price * number
+      @balance += final_price * @scanner.number_of(sku)
     end
     apply_discount if bonus_card_scanned?
     @balance
@@ -17,10 +18,10 @@ class BalanceKeeper
   private
 
   def apply_discount
-    @balance -= BOGOMachine.new(@items_scanned).discount
+    @balance -= BOGOMachine.new(@scanner).discount
   end
 
   def bonus_card_scanned?
-    @items_scanned.has_key?(000)
+    @items_scanned.include?(000)
   end
 end

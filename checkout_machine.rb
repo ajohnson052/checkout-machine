@@ -7,14 +7,14 @@ require 'pry'
 
 class CheckoutMachine
   def initialize
-    @tally_keeper = Scanner.new
+    @scanner = Scanner.new
   end
 
   def scan(sku)
-    @tally_keeper.scan(sku)
+    @scanner.scan(sku)
   end
 
   def total
-    BalanceKeeper.new(@tally_keeper.items_scanned).total
+    BalanceKeeper.new(@scanner).total
   end
 end
