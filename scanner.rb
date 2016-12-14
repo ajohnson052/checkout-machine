@@ -1,16 +1,17 @@
 class Scanner
   def get_item(sku)
-    item = case sku
+    hash = case sku
     when 123
-      Item.new(123, 'chips', 200, 0)
+      { sku: 123, description: 'chips', price:  200 }
     when 456
-      Item.new(456, 'salsa', 100, 0.5)
+      { sku: 456, description: 'salsa', price:  100, discount: 0.5 }
     when 789
-      Item.new(789, 'wine', 1000, 0)
+      { sku: 789, description: 'wine',  price: 1000 }
     when 111
-      Item.new(111, 'cigarettes', 550, 0)
+      { sku: 111, description: 'cigarettes', price: 550 }
     when 000
-      Item.new(000, 'bonus_card', 0, 0)
+      { sku: 000, description: 'bonus_card' }
     end
+    Item.new(hash)
   end
 end

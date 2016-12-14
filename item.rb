@@ -1,11 +1,11 @@
 class Item
   attr_reader :sku, :price
 
-  def initialize(sku, description, price, discount)
-    @sku = sku
-    @description = description
-    @price = price
-    @discount = discount
+  def initialize(hash)
+    @sku = hash[:sku]
+    @description = hash[:description]
+    @price = hash[:price] || 0
+    @discount = hash[:discount] || 0
   end
 
   def discounted_price
