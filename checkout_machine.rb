@@ -1,8 +1,6 @@
 require_relative 'item_catalog'
-require_relative 'item'
 require_relative 'bogo_machine'
 require_relative 'scanner'
-require 'pry'
 
 class CheckoutMachine
   def initialize
@@ -18,17 +16,22 @@ class CheckoutMachine
     @scanner.items_scanned.each do |sku|
       item = ItemCatalog.get_item(sku)
       quantity = @scanner.number_of(sku)
-      final_price = bonus_card_scanned? ? item.discounted_price : item.price
-      @balance += final_price * quantity
-      apply_discount(item, quantity) if bonus_card_scanned?
+      @balance += adjusted_price(item) * quantity
+      apply_discount(item, quantity)
     end
     @balance
   end
 
   private
 
+  def adjusted_price(item)
+    bonus_card_scanned? ? item.price_with_bonus_card : item.price
+  end
+
   def apply_discount(item, quantity)
-    @balance -= BOGOMachine.new(item: item, quantity: quantity).discount
+    if bonus_card_scanned?
+      @balance -= BOGOMachine.new(item: item, quantity: quantity).discount
+    end
   end
 
   def bonus_card_scanned?

@@ -114,4 +114,17 @@ class CheckoutMachineTest < Minitest::Test
     # Assert
     assert_equal 1000, @cm.total
   end
+
+  def test_scan_cigarettes_expect_550
+    @cm.scan(111)
+
+    assert_equal 550, @cm.total
+  end
+
+  def test_scan_cigarettes_with_bonus_card_expect_550
+    @cm.scan(111)
+    @cm.scan(000)
+
+    assert_equal 550, @cm.total
+  end
 end
